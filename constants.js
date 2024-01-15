@@ -1,4 +1,4 @@
-export const DEFAULT_DAYS = {
+export const DEFAULT_CONFIG = {
   days: {
     Monday: 'Do homework',
     Tuesday: 'Go to the gym',
@@ -7,7 +7,9 @@ export const DEFAULT_DAYS = {
     Friday: 'Go to the restaurant',
     Saturday: 'Go to the park',
     Sunday: 'Go to the sea'
-  }
+  },
+  thisWeek: [],
+  notes: []
 }
 
 export const NUMBER_OF_STARS = 8

@@ -1,4 +1,4 @@
-import { DEFAULT_DAYS } from './constants'
+import { DEFAULT_CONFIG } from './constants'
 
 export function initializePlanning () {
   try {
@@ -6,9 +6,9 @@ export function initializePlanning () {
     if (planning) {
       return JSON.parse(planning)
     }
-    return DEFAULT_DAYS
+    return DEFAULT_CONFIG
   } catch (e) {
-    return DEFAULT_DAYS
+    return DEFAULT_CONFIG
   }
 }
 

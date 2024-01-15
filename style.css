@@ -1,0 +1,319 @@
+:root {
+  font-family: "Dank Mono";
+  color-scheme: light dark;
+
+  --primary-color: 197, 162, 234;
+  --secondary-color: 67, 129, 244;
+  --secondary-color-dark: 31, 36, 48;
+  --bg-color: #242424;
+  --color: rgba(255, 255, 255, 0.87);
+  --border-radius: 10px;
+  --bezier: cubic-bezier(0.33, 0.51, 0.43, 0.87);
+  --time: 0.25s;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  margin: 0 auto;
+  min-height: 100vh;
+  max-width: 1000px;
+  background-color: var(--bg-color);
+  color: var(--color);
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@property --angle-x {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes x-move {
+  0% {
+    --angle-x: 0deg;
+  }
+  100% {
+    --angle-x: 360deg;
+  }
+}
+
+@property --angle-y {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes y-move {
+  0% {
+    --angle-y: 0deg;
+  }
+  100% {
+    --angle-y: 360deg;
+  }
+}
+
+header > .stars {
+  position: absolute;
+  transform: translateX(calc(sin(var(--angle-x)) * 20px))
+    translateY(calc(sin(var(--angle-y)) * 15px));
+  animation: x-move 6s linear infinite, y-move 3s linear infinite;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  font-weight: 800;
+  font-size: 4rem;
+  margin: 1rem 0;
+}
+
+h1 > .left {
+  text-align: right;
+  text-transform: uppercase;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  font-family: "Study Alone";
+}
+
+h1 > .left span {
+  display: block;
+}
+
+h1 > .right {
+  font-family: "Better Together Script";
+  font-weight: 100;
+  text-transform: lowercase;
+  font-size: 7rem;
+  padding-right: 5px;
+  transform: translateY(-10px);
+}
+
+.animated-text {
+  color: transparent;
+  background: linear-gradient(to right, #c6f, rgb(67, 129, 244), #c7b);
+  background-clip: text;
+  background-size: 400% 100%;
+
+  animation: moveIt 10s infinite;
+}
+
+@keyframes moveIt {
+  50% {
+    background-position: 100%, 100%;
+  }
+}
+
+main {
+  padding: 0 3rem;
+  width: 100%;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 2fr 1fr;
+}
+
+/* ---------------------------------------- */
+
+#planning {
+  padding: 2rem 0;
+  display: flex;
+  flex-flow: column;
+  gap: 0.7rem;
+}
+
+article {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.8rem;
+}
+
+.day,
+.content {
+  border: 2px solid rgb(var(--primary-color));
+  border-radius: var(--border-radius);
+}
+
+.day {
+  padding: 0.6rem 0.8rem;
+  text-transform: capitalize;
+  text-align: center;
+  writing-mode: vertical-rl;
+
+  color: rgb(var(--primary-color));
+  background-color: rgb(var(--primary-color), 0.2);
+
+  transform: rotate(180deg);
+}
+
+.content {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  background-color: rgb(var(--primary-color), 0.05);
+}
+
+article:nth-child(odd) > .day {
+  color: rgb(var(--secondary-color));
+  background-color: rgb(var(--secondary-color), 0.2);
+  border-color: rgb(var(--secondary-color));
+}
+
+article:nth-child(even) > .content {
+  background-color: rgb(var(--secondary-color), 0.05);
+  border-color: rgb(var(--secondary-color));
+}
+
+/* ---------------------------------------- */
+
+aside {
+  padding: 2rem 0;
+  display: grid;
+  grid-template-rows: 2fr 3fr;
+  gap: 0.7rem;
+}
+
+aside > section {
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--border-radius);
+}
+
+aside > section > h2 {
+  text-transform: lowercase;
+}
+
+aside > .focus {
+  border: 2px solid rgb(var(--primary-color));
+  color: rgb(var(--primary-color));
+  background-color: rgb(var(--primary-color), 0.2);
+}
+
+aside > .notes {
+  border: 2px solid rgb(var(--secondary-color));
+  color: rgb(var(--secondary-color));
+  background-color: rgb(var(--secondary-color), 0.2);
+}
+
+/* ---------------------------------------- */
+
+.dialog-in {
+  opacity: 1;
+}
+
+dialog {
+  margin: auto;
+  background: transparent;
+  border: none;
+  opacity: 0;
+  transition: opacity ease-in-out 0.25s;
+}
+
+dialog::backdrop {
+  background-color: transparent;
+  transition: all 0.25s;
+}
+
+dialog.dialog-in::backdrop {
+  background-color: #00000050;
+  backdrop-filter: blur(2px);
+}
+
+#form {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 3rem;
+
+  background: linear-gradient(
+      rgb(var(--secondary-color), 0.25),
+      rgb(var(--secondary-color), 0.25)
+    ),
+    linear-gradient(var(--bg-color), var(--bg-color));
+
+  border: 2px solid rgb(var(--secondary-color));
+  border-radius: var(--border-radius);
+}
+
+#form > h3 {
+  font-size: 1.7rem;
+  text-transform: uppercase;
+}
+
+#form > textarea {
+  resize: none;
+  font-family: inherit;
+  padding: 0.5rem;
+  background: rgb(var(--secondary-color-dark));
+  border-radius: var(--border-radius);
+  border: 1px solid rgb(var(--secondary-color));
+  font-size: 1rem;
+
+  caret-color: rgb(var(--secondary-color));
+}
+
+#form > textarea:active,
+#form > textarea:focus {
+  outline: 2px solid rgb(var(--secondary-color));
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------- */
+
+button {
+  border-radius: var(--border-radius);
+  color: rgb(var(--secondary-color));
+  border: 2px solid rgb(var(--secondary-color));
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.25s;
+
+  background: transparent;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  background: rgb(var(--secondary-color));
+  color: var(--color);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color: #213547;
+    --bg-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
